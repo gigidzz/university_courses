@@ -69,5 +69,56 @@ class tssu extends Controller
         $faculty = Faculty::findOrFail($id);
         return view('faculties.show', compact('faculty'));
     }
+    public function indexApi()
+    {
+        $faculties = Faculty::paginate(5);
+        response()->json($faculties);
+    }
+
+    public function showApi($id){
+        $faculty = Faculty::findOrFail($id);
+        return response()->json($faculty);
+    }
+
+
+    public function storeApi(Request $request){
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|string|in:active,inactive',
+        ]);
+
+        $faculty = Faculty::create($request->all());
+        return response()->json($faculty, 201); // Return created faculty with status 201
+    }
+
+    public function updateApi(Request $request, $id)
+    {
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'status' => 'required|string|in:active,inactive',
+        ]);
+
+
+        $faculty = Faculty::findOrFail($id);
+        $faculty->update($request->all());
+        return response()->json($faculty);
+    }
+
+    public function destroyApi($id)
+    {
+        $faculty = Faculty::find($id);
+
+        if ($faculty) {
+            $faculty->delete();
+            return response()->json(['message' => 'Faculty deleted successfully']);
+        }
+
+        return response()->json(['message' => 'Faculty not found'], 404);
+    }
+
 }
 
