@@ -1,14 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Faculties</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+@extends('layouts.app')
 
-<div class="container mt-5">
+@section('title','Faculties')
+
+@section('content')
+
     <h1>Faculties</h1>
 
 {{--    I added add faculty button--}}
@@ -44,11 +39,4 @@
     <div class="mt-4">
         {{ $faculties->links('pagination::bootstrap-4') }}
     </div>
-</div>
-
-
-
-
-
-</body>
-</html>
+@endsection

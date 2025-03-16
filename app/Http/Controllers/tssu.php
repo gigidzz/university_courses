@@ -18,7 +18,6 @@ class tssu extends Controller
     public function create() : View {
         return view('faculties.create');
     }
-
     public function store(Request $request) : RedirectResponse
     {
         // Validate the incoming request data
