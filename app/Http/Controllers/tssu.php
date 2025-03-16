@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faculty;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -33,6 +34,11 @@ class tssu extends Controller
         // Redirect to the faculties index page with a success message
         return redirect()->route('faculties.index')->with('success', 'Faculty created successfully!');
     }
+    public function show(int $id):View
+    {
+        $faculty = Faculty::findOrFail($id);
+        return view('faculties.show', compact('faculty'));
+    }
     public function edit(int $id) : View
     {
         $faculty = Faculty::findOrFail($id);
@@ -53,7 +59,7 @@ class tssu extends Controller
         $faculty->save();
         return redirect()->route('faculties.index')->with('success', 'Faculty updated successfully!');
     }
-    public function destroy($id){
+    public function destroy(int $id):RedirectResponse{
         $faculty = Faculty::find($id);
 
         if($faculty){
@@ -63,24 +69,20 @@ class tssu extends Controller
         return redirect()->route('faculties.index')->with('error', 'Faculty not found!');
     }
 
-    public function show($id)
-    {
-        $faculty = Faculty::findOrFail($id);
-        return view('faculties.show', compact('faculty'));
-    }
-    public function indexApi()
+
+    public function indexApi():JsonResponse
     {
         $faculties = Faculty::paginate(5);
-        response()->json($faculties);
+        return response()->json($faculties);
     }
 
-    public function showApi($id){
+    public function showApi(int $id):JsonResponse{
         $faculty = Faculty::findOrFail($id);
         return response()->json($faculty);
     }
 
 
-    public function storeApi(Request $request){
+    public function storeApi(Request $request):JsonResponse{
 
         $request->validate([
             'name' => 'required|string|max:255',
@@ -92,7 +94,7 @@ class tssu extends Controller
         return response()->json($faculty, 201); // Return created faculty with status 201
     }
 
-    public function updateApi(Request $request, $id)
+    public function updateApi(Request $request,int $id):JsonResponse
     {
 
         $request->validate([
@@ -107,7 +109,7 @@ class tssu extends Controller
         return response()->json($faculty);
     }
 
-    public function destroyApi($id)
+    public function destroyApi(int $id):JsonResponse
     {
         $faculty = Faculty::find($id);
 
