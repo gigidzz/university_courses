@@ -11,6 +11,6 @@ Route::prefix('v1')->group(function () {
     Route::delete('/faculties/{id}', [TssuApiController::class, 'destroy']);
 });
 
-Route::get('/test', function () {
-    return response()->json(['message' => 'API is working']);
-});
+//Route::get('/test', function () {
+//    return response()->json(['message' => 'API is working']);
+//});
