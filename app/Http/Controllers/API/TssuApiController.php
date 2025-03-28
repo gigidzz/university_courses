@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\TssuResource;
+use App\Http\Resources\TssuCollection;
 use App\Services\FacultyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -18,11 +20,11 @@ class TssuApiController extends Controller
         $this->facultyService = $facultyService;
     }
 
-    public function index(): JsonResponse
+    public function index(): TssuCollection
     {
         $faculties = $this->facultyService->getAllFacultiesPaginated();
 
-        return response()->json(['data'=>$faculties],Response::HTTP_OK);
+        return new TssuCollection($faculties);
     }
 
     public function store(Request $request): JsonResponse
@@ -35,15 +37,15 @@ class TssuApiController extends Controller
 
         $faculty = $this->facultyService->createFaculty($validated);
 
-        return response()->json(['data'=>$faculty],Response::HTTP_CREATED);
+        return new TssuResource($faculty)->response()->setStatusCode(Response::HTTP_CREATED);
     }
-    public function show(int $id): JsonResponse
+    public function show(int $id): TssuResource
     {
         $faculty = $this->facultyService->getFacultyById($id);
 
-        return response()->json(['data'=>$faculty],Response::HTTP_OK);
+        return new TssuResource($faculty);
     }
-    public function update(Request $request, int $id): JsonResponse
+    public function update(Request $request, int $id): TssuResource
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
@@ -53,13 +55,13 @@ class TssuApiController extends Controller
 
         $faculty = $this->facultyService->updateFaculty($id,$validated);
 
-        return response()->json(['data'=>$faculty],Response::HTTP_OK);
+        return new TssuResource($faculty);
     }
 
-    public function destroy(int $id): JsonResponse
+    public function destroy(int $id): Response
     {
         $this->facultyService->deleteFaculty($id);
 
-        return response()->json(null,Response::HTTP_NO_CONTENT);
+        return response(null, Response::HTTP_NO_CONTENT);
     }
 }

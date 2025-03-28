@@ -12,7 +12,7 @@ class Faculty extends Model
     use HasFactory;
 
 
-    protected $fillable = ['name','description','status','created_at'];
+    protected $fillable = ['name','description','status'];
 
     public function getFormattedStatusAttribute(): string
     {
