@@ -7,7 +7,8 @@ use App\Repositories\FacultyRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-class FacultyService {
+class FacultyService
+{
     protected FacultyRepositoryInterface $facultyRepository;
 
     public function __construct(FacultyRepositoryInterface $facultyRepository)

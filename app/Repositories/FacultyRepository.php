@@ -7,7 +7,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class FacultyRepository implements FacultyRepositoryInterface
 {
-
     protected Faculty $model;
 
     public function __construct(Faculty $faculty)
@@ -30,14 +29,15 @@ class FacultyRepository implements FacultyRepositoryInterface
         return $this->model->create($data);
     }
 
-    public function update(int $id, array $data):Faculty
+    public function update(int $id, array $data): Faculty
     {
         $faculty = $this->findById($id);
         $faculty->update($data);
         return $faculty;
     }
 
-    public function delete(int $id): bool {
+    public function delete(int $id): bool
+    {
         $faculty = $this->model->find($id);
         if (!$faculty) {
             return false;

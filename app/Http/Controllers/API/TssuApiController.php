@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 
 class TssuApiController extends Controller
 {
-
     protected FacultyService $facultyService;
 
     public function __construct(FacultyService $facultyService)
@@ -53,7 +52,7 @@ class TssuApiController extends Controller
             'status' => 'required|string|in:active,inactive',
         ]);
 
-        $faculty = $this->facultyService->updateFaculty($id,$validated);
+        $faculty = $this->facultyService->updateFaculty($id, $validated);
 
         return new TssuResource($faculty);
     }

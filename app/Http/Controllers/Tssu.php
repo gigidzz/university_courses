@@ -9,7 +9,6 @@ use Illuminate\View\View;
 
 class Tssu extends Controller
 {
-
     protected facultyService $facultyService;
 
     public function __construct(facultyService $facultyService)
@@ -75,5 +74,4 @@ class Tssu extends Controller
 
         return redirect()->route('faculties.index')->with('error', 'Faculty not found!');
     }
-
 }

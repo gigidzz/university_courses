@@ -5,7 +5,8 @@ namespace App\Repositories;
 use App\Models\Faculty;
 use Illuminate\Pagination\LengthAwarePaginator;
 
-interface FacultyRepositoryInterface {
+interface FacultyRepositoryInterface
+{
     public function getAllPaginated(int $perPage = 5): LengthAwarePaginator;
     public function findById(int $id): ?Faculty;
 

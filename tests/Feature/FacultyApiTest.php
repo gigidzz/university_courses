@@ -8,9 +8,10 @@ use Tests\TestCase;
 class FacultyApiTest extends TestCase
 {
     /**
-     * test creating a new faculty. using assertJasonPath(I saw it in laravel 12 documentation) to see if json contains a specific value at a deep path
+     * test creating a new faculty.
+     * Using assertJasonPath(found in laravel 12 documentation) to see if json contains a specific value at a deep path
      */
-    public function test_creating_a_faculty(): void
+    public function testCreatingFaculty(): void
     {
         $response = $this->postJson('/api/v1/faculties', [
             'name' => 'Test Faculyy',
@@ -23,9 +24,10 @@ class FacultyApiTest extends TestCase
 
 
     /**
-     * test for retrieving the list of all the faculties. I create some and then check if they appear in /api/v1/faculties
+     * test for retrieving the list of all the faculties.
+     * I create some and then check if they appear in /api/v1/faculties
      */
-    public function test_getting_all_faculties(): void
+    public function testGettingAllFaculties(): void
     {
         Faculty::create([
             'name' => 'gigivar',
@@ -59,7 +61,7 @@ class FacultyApiTest extends TestCase
     /**
     * same but for single faculty.
      */
-    public function test_retrieving_a_single_faculty(): void
+    public function testRetrievingASingleFaculty(): void
     {
         $faculty = Faculty::create([
             'name' => 'enggggggggg',
@@ -83,7 +85,7 @@ class FacultyApiTest extends TestCase
     /**
      * Test updating an existing faculty.
      */
-    public function test_updating_a_faculty(): void
+    public function testUpdatingAFaculty(): void
     {
         $faculty = Faculty::create([
             'name' => 'updatetest',
@@ -105,7 +107,7 @@ class FacultyApiTest extends TestCase
     /**
      * Test deleting a faculty.
      */
-    public function test_deleting_a_faculty(): void
+    public function testDeletingAFaculty(): void
     {
         $faculty = Faculty::create([
             'name' => 'testfordeletion',
@@ -118,5 +120,4 @@ class FacultyApiTest extends TestCase
         $response->assertStatus(204);
         $this->assertDatabaseMissing('faculties', ['id' => $faculty->id]);
     }
-
 }
