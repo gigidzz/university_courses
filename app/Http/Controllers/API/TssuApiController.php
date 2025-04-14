@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreFacultyRequest;
+use App\Http\Requests\UpdateFacultyRequest;
 use App\Http\Resources\TssuResource;
 use App\Http\Resources\TssuCollection;
 use App\Services\FacultyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
-use Illuminate\Http\Request;
 
 class TssuApiController extends Controller
 {
@@ -28,13 +29,9 @@ class TssuApiController extends Controller
         return new TssuCollection($faculties);
     }
 
-    public function store(Request $request): JsonResponse
+    public function store(StoreFacultyRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|string|in:active,inactive',
-        ]);
+        $validated = $request->validated();
 
         $faculty = $this->facultyService->createFaculty($validated);
 
@@ -46,13 +43,9 @@ class TssuApiController extends Controller
 
         return new TssuResource($faculty);
     }
-    public function update(Request $request, int $id): TssuResource
+    public function update(UpdateFacultyRequest $request, int $id): TssuResource
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|string|in:active,inactive',
-        ]);
+        $validated = $request->validated();
 
         $faculty = $this->facultyService->updateFaculty($id, $validated);
 

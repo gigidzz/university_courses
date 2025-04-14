@@ -3,6 +3,17 @@
 @section('title', 'Edit Faculty')
 
 @section('content')
+
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <h1>Edit Faculty</h1>
 
     <form action="{{ route('faculties.update', $faculty->id) }}" method="POST">

@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreFacultyRequest;
+use App\Http\Requests\UpdateFacultyRequest;
 use App\Services\FacultyService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class Tssu extends Controller
@@ -29,13 +30,9 @@ class Tssu extends Controller
     {
         return view('faculties.create');
     }
-    public function store(Request $request): RedirectResponse
+    public function store(StoreFacultyRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'status' => 'required|string|in:active,inactive',
-        ]);
+        $validated = $request->validated();
 
         $this->facultyService->createFaculty($validated);
 
@@ -54,13 +51,9 @@ class Tssu extends Controller
 
         return view('faculties.edit', compact('faculty'));
     }
-    public function update(Request $request, int $id): RedirectResponse
+    public function update(UpdateFacultyRequest $request, int $id): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'status' => 'required|string|in:active,inactive',
-        ]);
+        $validated = $request->validated();
 
         $this->facultyService->updateFaculty($id, $validated);
 
