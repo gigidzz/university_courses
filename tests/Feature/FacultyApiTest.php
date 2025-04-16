@@ -5,16 +5,21 @@ declare(strict_types=1);
 namespace Tests\Feature;
 
 use App\Models\Faculty;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class FacultyApiTest extends TestCase
 {
+
+    use refreshDatabase;
     /**
      * test creating a new faculty.
      * Using assertJasonPath(found in laravel 12 documentation) to see if json contains a specific value at a deep path
      */
     public function testCreatingFaculty(): void
     {
+
         $response = $this->postJson('/api/v1/faculties', [
             'name' => 'Test Faculyy',
             'description' => 'Test Faculty',
@@ -122,4 +127,19 @@ class FacultyApiTest extends TestCase
         $response->assertStatus(204);
         $this->assertDatabaseMissing('faculties', ['id' => $faculty->id]);
     }
+
+    public function test_database_connection_check()
+    {
+        $dbName = DB::connection()->getDatabaseName();
+
+        echo "\n=================================";
+        echo "\nCurrent Database: " . $dbName;
+        echo "\n=================================\n";
+
+
+
+        $this->assertEquals('testing_db', $dbName);
+    }
+
+
 }

@@ -17,7 +17,9 @@ class FacultyFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'description' => $this->faker->paragraph(),
+            'status' => $this->faker->randomElement(['active', 'inactive']),
         ];
     }
 }
