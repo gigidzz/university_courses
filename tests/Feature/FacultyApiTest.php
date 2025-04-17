@@ -140,6 +140,4 @@ class FacultyApiTest extends TestCase
 
         $this->assertEquals('testing_db', $dbName);
     }
-
-
 }
