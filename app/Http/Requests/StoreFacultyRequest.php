@@ -40,5 +40,4 @@ class StoreFacultyRequest extends FormRequest
             'description.max' => 'The description cannot be more than 255 characters',
         ];
     }
-
 }

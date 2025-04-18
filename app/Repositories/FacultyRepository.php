@@ -35,15 +35,17 @@ class FacultyRepository implements FacultyRepositoryInterface
     {
         $faculty = $this->findById($id);
         $faculty->update($data);
+
         return $faculty;
     }
 
     public function delete(int $id): bool
     {
         $faculty = $this->model->find($id);
-        if (!$faculty) {
+        if (! $faculty) {
             return false;
         }
+
         return $faculty->delete();
     }
 }

@@ -18,9 +18,9 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         //
-        $this->app->bind(FacultyRepositoryInterface::class, function ($app) {
+        $this->app->bind(FacultyRepositoryInterface::class, static function ($app) {
             return new CachedFacultyRepository(
-                new FacultyRepository(new Faculty())
+                new FacultyRepository(new Faculty()),
             );
         });
     }

@@ -30,6 +30,7 @@ class Tssu extends Controller
     {
         return view('faculties.create');
     }
+
     public function store(StoreFacultyRequest $request): RedirectResponse
     {
         $validated = $request->validated();
@@ -38,6 +39,7 @@ class Tssu extends Controller
 
         return redirect()->route('faculties.index')->with('success', 'Faculty created successfully!');
     }
+
     public function show(int $id): View
     {
         $faculty = $this->facultyService->getFacultyById($id);
@@ -51,6 +53,7 @@ class Tssu extends Controller
 
         return view('faculties.edit', compact('faculty'));
     }
+
     public function update(UpdateFacultyRequest $request, int $id): RedirectResponse
     {
         $validated = $request->validated();
@@ -59,6 +62,7 @@ class Tssu extends Controller
 
         return redirect()->route('faculties.index')->with('success', 'Faculty updated successfully!');
     }
+
     public function destroy(int $id): RedirectResponse
     {
         $result = $this->facultyService->deleteFaculty($id);

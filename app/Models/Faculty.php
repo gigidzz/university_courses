@@ -13,8 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string|null $description
  * @property string $status
- * @property Carbon $created_at
- * @property Carbon $updated_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
  * @method findOrFail(int $id)
  */
 
@@ -23,13 +23,13 @@ class Faculty extends Model
 //    /** @use HasFactory<\Database\Factories\FacultyFactory> */
     use HasFactory;
 
-
-    protected $fillable = ['name','description','status'];
+    protected $fillable = ['name', 'description', 'status'];
 
     public function getFormattedStatusAttribute(): string
     {
-        return $this->status == 'active' ? '✅ Active' : '❌ Inactive';
+        return $this->status === 'active' ? '✅ Active' : '❌ Inactive';
     }
+
     public function getFormattedCreatedAtAttribute(): string
     {
         return Carbon::parse($this->created_at)->format('M d, Y');
@@ -54,11 +54,14 @@ class Faculty extends Model
     {
         return $this->status;
     }
-    public function getUpdatedAt(): Carbon {
-        return ($this->updated_at);
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->updated_at;
     }
 
-    public function getCreatedAt(): Carbon {
-        return ($this->created_at);
+    public function getCreatedAt(): Carbon
+    {
+        return $this->created_at;
     }
 }

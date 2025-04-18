@@ -20,7 +20,7 @@ class CachedFacultyRepository implements FacultyRepositoryInterface
 
     public function getAllPaginated(int $perPage = 5): LengthAwarePaginator
     {
-        $cacheKey = "faculties.paginated.{$perPage}";
+        $cacheKey = 'faculties.paginated.' . $perPage;
 
         return Cache::remember($cacheKey, $this->cacheTime, function () use ($perPage) {
             return $this->repository->getAllPaginated($perPage);
@@ -29,7 +29,7 @@ class CachedFacultyRepository implements FacultyRepositoryInterface
 
     public function findById(int $id): ?Faculty
     {
-        $cacheKey = "faculties.{$id}";
+        $cacheKey = 'faculties.' . $id;
 
         return Cache::remember($cacheKey, $this->cacheTime, function () use ($id) {
             return $this->repository->findById($id);
@@ -66,15 +66,14 @@ class CachedFacultyRepository implements FacultyRepositoryInterface
         return $result;
     }
 
-
     protected function clearCache(?int $id = null): void
     {
 
-        Cache::forget("faculties.paginated.5");
+        Cache::forget('faculties.paginated.5');
 
 
         if ($id !== null) {
-            Cache::forget("faculties.{$id}");
+            Cache::forget('faculties.' . $id);
         }
     }
 }

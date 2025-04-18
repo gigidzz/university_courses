@@ -9,7 +9,8 @@ use App\Repositories\FacultyRepositoryInterface;
 use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
-class FacultyCachingTest extends TestCase{
+class FacultyCachingTest extends TestCase
+{
     public function testItUsesCacheToReturnFaculty()
     {
         Cache::flush();
@@ -26,7 +27,6 @@ class FacultyCachingTest extends TestCase{
         $cachedFaculty = $repo->findById($faculty->getId());
 
         $this->assertEquals('Cached Faculty', $cachedFaculty->name);
-
     }
 
     public function test_cache_is_cleared_after_update()
@@ -47,5 +47,4 @@ class FacultyCachingTest extends TestCase{
 
         $this->assertEquals('After Update', $updatedFaculty->name);
     }
-
 }

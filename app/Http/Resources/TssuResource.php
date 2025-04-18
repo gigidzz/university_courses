@@ -4,12 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
-use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * @mixin Faculty
+ * @mixin \App\Models\Faculty
  */
 class TssuResource extends JsonResource
 {

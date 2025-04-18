@@ -24,7 +24,7 @@ class TssuCollection extends ResourceCollection
                 'per_page' => $this->resource->perPage(),
                 'current_page' => $this->resource->currentPage(),
                 'total_pages' => $this->resource->lastPage(),
-            ]
+            ],
         ];
     }
 }

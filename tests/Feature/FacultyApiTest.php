@@ -11,15 +11,15 @@ use Tests\TestCase;
 
 class FacultyApiTest extends TestCase
 {
-
     use refreshDatabase;
+
     /**
      * test creating a new faculty.
      * Using assertJasonPath(found in laravel 12 documentation) to see if json contains a specific value at a deep path
      */
+
     public function testCreatingFaculty(): void
     {
-
         $response = $this->postJson('/api/v1/faculties', [
             'name' => 'Test Faculyy',
             'description' => 'Test Faculty',
@@ -28,7 +28,6 @@ class FacultyApiTest extends TestCase
         $response->assertStatus(201)
             ->assertJsonPath('data.name', 'Test Faculyy');
     }
-
 
     /**
      * test for retrieving the list of all the faculties.
@@ -64,7 +63,6 @@ class FacultyApiTest extends TestCase
         ]);
     }
 
-
     /**
     * same but for single faculty.
      */
@@ -76,7 +74,7 @@ class FacultyApiTest extends TestCase
             'status' => 'active',
         ]);
 
-        $response = $this->getJson("/api/v1/faculties/{$faculty->id}");
+        $response = $this->getJson('/api/v1/faculties/' . $faculty->id);
 
         $response->assertStatus(200)
             ->assertJson([
@@ -85,7 +83,7 @@ class FacultyApiTest extends TestCase
                     'name' => 'enggggggggg',
                     'description' => 'Engineering faculty',
                     'status' => 'active',
-                ]
+                ],
             ]);
     }
 
@@ -100,7 +98,7 @@ class FacultyApiTest extends TestCase
             'status' => 'active',
         ]);
 
-        $response = $this->putJson("/api/v1/faculties/{$faculty->id}", [
+        $response = $this->putJson('/api/v1/faculties/' . $faculty->id, [
             'name' => 'Business and Economics',
             'description' => 'Updated description',
             'status' => 'inactive',
@@ -122,7 +120,7 @@ class FacultyApiTest extends TestCase
             'status' => 'active',
         ]);
 
-        $response = $this->deleteJson("/api/v1/faculties/{$faculty->id}");
+        $response = $this->deleteJson('/api/v1/faculties/' . $faculty->id);
 
         $response->assertStatus(204);
         $this->assertDatabaseMissing('faculties', ['id' => $faculty->id]);

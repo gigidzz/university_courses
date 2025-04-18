@@ -7,8 +7,8 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreFacultyRequest;
 use App\Http\Requests\UpdateFacultyRequest;
-use App\Http\Resources\TssuResource;
 use App\Http\Resources\TssuCollection;
+use App\Http\Resources\TssuResource;
 use App\Services\FacultyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
@@ -37,12 +37,14 @@ class TssuApiController extends Controller
 
         return new TssuResource($faculty)->response()->setStatusCode(Response::HTTP_CREATED);
     }
+
     public function show(int $id): TssuResource
     {
         $faculty = $this->facultyService->getFacultyById($id);
 
         return new TssuResource($faculty);
     }
+
     public function update(UpdateFacultyRequest $request, int $id): TssuResource
     {
         $validated = $request->validated();
